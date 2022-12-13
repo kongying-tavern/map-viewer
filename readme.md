@@ -11,10 +11,9 @@ A game map viewer and debugger.
 1. Install latest `node` **LTS** version with `pnpm`.
 2. Clone or download this repository.
 3. Run `pnpm install`.
-4. Serve the images exported by `it-is-a-exporter` or just copy them to `/public`.
-5. Learn the `MapMetadata` type defined in `vite-env.d.ts`.
-6. By Step.4, define your own `MapMetadata` **JSON** and fetch it at `App.tsx`.
-7. Run `pnpm run dev` command and open your browser.
+4. Copy the images exported by `it-is-a-exporter` to `/public/Teyvat`.
+5. Use `it-is-a-exporter` to auto gen tile json.
+6. Run `pnpm run dev` command and open your browser.
 
 ## License
 
