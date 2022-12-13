@@ -1,5 +1,6 @@
+import { COORDINATE_SYSTEM } from "@deck.gl/core/typed";
 import { TileIndex } from "@deck.gl/geo-layers/typed/tile-layer/types";
-import { BitmapLayer, BitmapLayerProps } from "@deck.gl/layers/typed";
+import { BitmapLayer, BitmapLayerProps, LineLayer, TextLayer } from "@deck.gl/layers/typed";
 
 const canvas = document.createElement("canvas");
 const context = canvas.getContext("2d");
@@ -56,12 +57,41 @@ export const imageBitmapMontageLayer = (tileLayerMeta: TileLayerMetadata, extent
   const { tileSize, tileMeta } = tileLayerMeta;
   const { baseUrl, tileName, tileRegion, extName } = tileMeta;
   const BitmapLayerArray: any[] = [];
+  const LineLayerArray: any[] = [];
   const range = (start: number, stop: number, step: number): Array<number> =>
     Array.from({ length: (stop - start) / step + 1 }, (_, i) => start + i * step);
 
   const leftArray = range(extent[0], extent[2], tileSize);
-  leftArray.pop();
   const topArray = range(extent[1], extent[3], tileSize);
+
+  // Horizontal line
+  const horizontalPosY = topArray[topArray.length - 1];
+  for (const x of leftArray) {
+    LineLayerArray.push(
+      new LineLayer({
+        id: `tile-bitmap-montage-line-layer-x-${x / tileSize}`,
+        data: [{}],
+        getSourcePosition: [x, topArray[0]],
+        getTargetPosition: [x, horizontalPosY],
+        coordinateSystem: COORDINATE_SYSTEM.CARTESIAN,
+      })
+    );
+  }
+  // Vertical line
+  const verticalPosX = leftArray[leftArray.length - 1];
+  for (const y of topArray) {
+    LineLayerArray.push(
+      new LineLayer({
+        id: `tile-bitmap-montage-line-layer-y-${y / tileSize}`,
+        data: [{}],
+        getSourcePosition: [leftArray[0], y],
+        getTargetPosition: [verticalPosX, y],
+        coordinateSystem: COORDINATE_SYSTEM.CARTESIAN,
+      })
+    );
+  }
+
+  leftArray.pop();
   topArray.pop();
   const lt = [];
   for (const x of leftArray) {
@@ -77,16 +107,30 @@ export const imageBitmapMontageLayer = (tileLayerMeta: TileLayerMetadata, extent
     const bounds: [number, number, number, number] = [left, top + tileSize, left + tileSize, top];
     BitmapLayerArray.push([
       new BitmapLayer({
-        id: `tile-bitmap-montage-${x}-${y}-${z}`,
+        id: `tile-bitmap-montage-${-y}-${-x}-${z}`,
         image: `${baseUrl}/${tileRegion}/${tileName}${x}_${y}.${extName}`,
         bounds: bounds,
       }),
-      // new BitmapLayer({
-      //   id: `tile-bitmap-montage-debug-${x}-${y}-${z}`,
-      //   image: drawDebugImage({ x, y, z }, size),
-      //   bounds: bounds,
-      // }),
+      new TextLayer({
+        id: `tile-bitmap-montage-text-layer-${-y}-${-x}-${z}`,
+        data: [
+          {
+            name: `${tileName}${x}_${y}\nx:${-y},y:${-x},z:${z}`,
+            coordinates: [left + tileSize / 2, top + tileSize / 2],
+          },
+        ],
+        pickable: false,
+        getPosition: (d: { coordinates: any }) => d.coordinates,
+        coordinateSystem: COORDINATE_SYSTEM.CARTESIAN,
+        getText: (d) => d.name,
+        getSize: 64,
+        sizeUnits: "meters",
+        getAngle: 0,
+        getTextAnchor: "middle",
+        getAlignmentBaseline: "center",
+      }),
     ]);
   }
+  BitmapLayerArray.push(...LineLayerArray);
   return BitmapLayerArray;
 };
