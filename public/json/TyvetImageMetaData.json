@@ -1,0 +1,30 @@
+{
+    "tileLayerMeta": {
+        "tileMeta": {
+            "baseUrl": ".",
+            "tileName": "UI_MapBack_",
+            "tileLevel": 0,
+            "tileRegion": "Teyvat",
+            "version": 2.8,
+            "extName": "png"
+        },
+        "tileSize": 1024,
+        "minZoomNative": 0,
+        "maxZoomNative": 0
+    },
+    "zoom": -2,
+    "minZoom": -4,
+    "maxZoom": 0,
+    "tileLayerSize": {
+        "width": 13312,
+        "height": 12288
+    },
+    "tileLayerOriginOffset": {
+        "x": -6144,
+        "y": -4096
+    },
+    "mapCenter": {
+        "x": 0,
+        "y": 0
+    }
+}
