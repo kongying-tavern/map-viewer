@@ -74,6 +74,7 @@ export const imageBitmapMontageLayer = (tileLayerMeta: TileLayerMetadata, extent
         getSourcePosition: [x, topArray[0]],
         getTargetPosition: [x, horizontalPosY],
         coordinateSystem: COORDINATE_SYSTEM.CARTESIAN,
+        getColor: [0, 0, 0, 32],
       })
     );
   }
@@ -87,6 +88,7 @@ export const imageBitmapMontageLayer = (tileLayerMeta: TileLayerMetadata, extent
         getSourcePosition: [leftArray[0], y],
         getTargetPosition: [verticalPosX, y],
         coordinateSystem: COORDINATE_SYSTEM.CARTESIAN,
+        getColor: [0, 0, 0, 32],
       })
     );
   }
