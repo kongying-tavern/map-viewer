@@ -3,7 +3,7 @@ import { lazy, Suspense } from "react";
 import useSWR, { Fetcher, Key } from "swr";
 import { SplashScreen } from "./components/SplashScreen";
 const Layers = lazy(() => import("./Layers"));
-const ReloadPrompt = lazy(() => import("./ReloadPrompt"));
+// const ReloadPrompt = lazy(() => import("./ReloadPrompt"));
 
 const mapMetaDataKey: Key = "/json/TyvetMapMetaData.json";
 const imageMetaDataKey: Key = "/json/TyvetImageMetaData.json";
@@ -16,7 +16,7 @@ function App() {
       <Box flex="1" bg="tomato" h="100vh">
         <Suspense fallback={<SplashScreen />}>
           {data ? <Layers mapMetaData={data} /> : null}
-          <ReloadPrompt />
+          {/* <ReloadPrompt /> */}
         </Suspense>
       </Box>
     </Flex>

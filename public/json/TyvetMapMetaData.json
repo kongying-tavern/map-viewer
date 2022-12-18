@@ -1,0 +1,30 @@
+{
+    "tileLayerMeta": {
+        "tileMeta": {
+            "baseUrl": ".",
+            "tileName": "tiles_twt29",
+            "tileLevel": 13,
+            "tileRegion": "Teyvat",
+            "version": 2.8,
+            "extName": "png"
+        },
+        "tileSize": 256,
+        "minZoomNative": -2,
+        "maxZoomNative": 0
+    },
+    "zoom": -4,
+    "minZoom": -6,
+    "maxZoom": 1,
+    "tileLayerSize": {
+        "width": 14336,
+        "height": 15360
+    },
+    "tileLayerOriginOffset": {
+        "x": -2048,
+        "y": 0
+    },
+    "mapCenter": {
+        "x": 3568,
+        "y": 6286
+    }
+}
